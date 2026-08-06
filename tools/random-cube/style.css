@@ -1,0 +1,139 @@
+/* --- Global Reset --- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #1a1a1a;
+    color: white;
+    /* We removed the old centering code here so our new flex container can take over */
+}
+
+/* --- New Application Layout --- */
+.app-container {
+    display: flex;
+    min-height: 100vh; /* Takes up the full height of the screen */
+    width: 100%;
+}
+
+#sidebar {
+    width: 320px; /* Fixed width for the sidebar */
+    padding: 40px 20px;
+    background-color: #111; /* Slightly darker to separate from canvas area */
+    border-right: 1px solid #333;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar h1 {
+    margin: 0 0 20px 0;
+    font-size: 24px;
+    line-height: 1.3;
+}
+
+/* --- Update the Grid to fill the right side --- */
+.canvas-grid {
+    display: grid;
+    grid-template-columns: 400px 400px;
+    gap: 20px;
+    padding: 40px;
+    align-content: start; /* Pushes the grid to the top */
+    justify-content: center; /* Centers the grid in the remaining space */
+    flex-grow: 1; /* Tells the grid area to take up all leftover width */
+    box-sizing: border-box;
+}
+
+.back-link {
+    color: #aaa;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.back-link:hover {
+    color: #fff;
+}
+
+.control-panel {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Adds space between button and checkboxes */
+}
+
+#generate-btn {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    color: #eee;
+    font-size: 15px;
+}
+
+.control-group label {
+    cursor: pointer;
+    user-select: none; /* Prevents text highlighting when clicking rapidly */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.view-box {
+    background-color: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    position: relative; 
+}
+
+/* Forces the main view to span across both columns */
+.main-view {
+    grid-column: 1 / span 2; 
+    width: 820px; /* 400px + 400px + 20px gap */
+    height: 500px;
+}
+
+/* Keeps the bottom views square */
+.sub-view {
+    width: 400px;
+    height: 400px;
+}
+
+/* Float the labels over the 3D canvases */
+.view-box h3 {
+    position: absolute; 
+    top: 10px;
+    left: 15px;
+    margin: 0;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 4px;
+    font-size: 14px;
+    z-index: 10;
+    pointer-events: none; /* Lets you click "through" the label if needed */
+}
+
+/* Removes default browser margins on canvas elements */
+canvas {
+    display: block; 
+}
+
+/* Ensure radio buttons match checkbox sizing */
+input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
