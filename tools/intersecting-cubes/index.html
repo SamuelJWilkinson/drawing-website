@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intersecting Cubes - Perspective Simulator</title>
+    <link rel="stylesheet" href="../../css/shared-layout.css">
+</head>
+<body>
+    <div class="app-container">
+        
+        <div id="sidebar">
+            <a href="../../index.html" class="back-link">← Back to Library</a>
+            <h1>Intersecting Cubes</h1>
+            <p style="color:#aaa; font-size:14px; margin-top:0; margin-bottom:20px;">Study how independent objects share the same horizon line but use different vanishing points.</p>
+
+            <div class="control-panel">
+                <button id="generate-btn">Generate New Intersection</button>
+                
+                <hr style="border-color: #444; width: 100%; margin: 10px 0;">
+                <div style="color: #aaa; font-size: 12px; margin-bottom: 10px; text-transform: uppercase;">Perspective Constraints</div>
+                
+                <div class="control-group">
+                    <label><input type="radio" name="perspective-mode" id="mode-3pt" value="3pt" checked> Free Tumble (3-Point)</label>
+                </div>
+                <div class="control-group">
+                    <label><input type="radio" name="perspective-mode" id="mode-2pt" value="2pt"> Level Spin (2-Point)</label>
+                </div>
+                <div class="control-group">
+                    <label><input type="radio" name="perspective-mode" id="mode-1pt" value="1pt"> Straight On (1-Point)</label>
+                </div>
+
+                <hr style="border-color: #444; width: 100%; margin: 10px 0;">
+                <div class="control-group"><label><input type="checkbox" id="wireframe-toggle"> Wireframe Mode</label></div>
+                <div class="control-group"><label><input type="checkbox" id="horizon-toggle"> Show Horizon Line</label></div>
+                <div class="control-group"><label><input type="checkbox" id="vanishing-lines-toggle"> Show Vanishing Lines</label></div>
+                <div class="control-group"><label><input type="checkbox" id="cov-60-toggle"> Show 60° Cone of Vision</label></div>
+                <div class="control-group"><label><input type="checkbox" id="cov-90-toggle"> Show 90° Cone of Vision</label></div>
+
+                <hr style="border-color: #444; width: 100%; margin: 10px 0;">
+                <div style="color: #aaa; font-size: 12px; margin-bottom: 10px; text-transform: uppercase;">Apparatus Controls</div>
+                <div class="control-group" style="flex-direction: column; align-items: flex-start;">
+                    <label for="pp-slider" style="margin-bottom: 5px;">Picture Plane Distance</label>
+                    <input type="range" id="pp-slider" min="0.5" max="4.5" step="0.1" value="2.5" style="width: 100%;">
+                </div>
+                <div class="control-group" style="flex-direction: column; align-items: flex-start; margin-top: 15px;">
+                    <label for="sp-slider" style="margin-bottom: 5px;">Station Point Distance (Eye)</label>
+                    <input type="range" id="sp-slider" min="3.0" max="15.0" step="0.5" value="5.0" style="width: 100%;">
+                </div>
+            </div>
+        </div>
+
+        <div class="canvas-grid">
+            <div id="perspective-container" class="view-box main-view"><h3>1. Drawing View</h3></div>
+            <div id="top-container" class="view-box sub-view"><h3>2. Top Plan View</h3></div>
+            <div id="meta-container" class="view-box sub-view"><h3>3. Meta 3D View</h3></div>
+        </div>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script type="module" src="tool.js"></script>
+</body>
+</html>
