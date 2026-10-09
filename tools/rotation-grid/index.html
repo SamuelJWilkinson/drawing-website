@@ -12,10 +12,10 @@
         <div id="sidebar">
             <a href="../../index.html" class="back-link">← Back to Library</a>
             <h1>Rotation Grid</h1>
-            <p style="color:#aaa; font-size:14px; margin-top:0; margin-bottom:20px;">A 3x3 grid showing common drafting angles. Notice how cubes with identical rotations look different depending on their placement in your cone of vision.</p>
+            <p class="tool-description">A 3x3 grid showing common drafting angles. Notice how cubes with identical rotations look different depending on their placement in your cone of vision.</p>
 
             <div class="control-panel">
-                <div style="color: #aaa; font-size: 12px; margin-bottom: 10px; text-transform: uppercase;">Angle Presets</div>
+                <div class="section-label">Angle Presets</div>
                 <div class="control-group">
                     <label><input type="radio" name="perspective-mode" id="mode-2pt" value="2pt" checked> 2-Point (Yaw Only)</label>
                 </div>
@@ -23,22 +23,22 @@
                     <label><input type="radio" name="perspective-mode" id="mode-3pt" value="3pt"> 3-Point (Tilted)</label>
                 </div>
 
-                <hr style="border-color: #444; width: 100%; margin: 10px 0;">
+                <hr class="divider">
                 <div class="control-group"><label><input type="checkbox" id="wireframe-toggle"> Wireframe Mode</label></div>
                 <div class="control-group"><label><input type="checkbox" id="horizon-toggle"> Show Horizon Line</label></div>
                 <div class="control-group"><label><input type="checkbox" id="vanishing-lines-toggle"> Show Vanishing Lines (Warning: Dense!)</label></div>
                 <div class="control-group"><label><input type="checkbox" id="cov-60-toggle"> Show 60° Cone of Vision</label></div>
                 <div class="control-group"><label><input type="checkbox" id="cov-90-toggle"> Show 90° Cone of Vision</label></div>
 
-                <hr style="border-color: #444; width: 100%; margin: 10px 0;">
-                <div style="color: #aaa; font-size: 12px; margin-bottom: 10px; text-transform: uppercase;">Apparatus Controls</div>
-                <div class="control-group" style="flex-direction: column; align-items: flex-start;">
-                    <label for="pp-slider" style="margin-bottom: 5px;">Picture Plane Distance</label>
-                    <input type="range" id="pp-slider" min="0.5" max="4.5" step="0.1" value="2.5" style="width: 100%;">
+                <hr class="divider">
+                <div class="section-label">Apparatus Controls</div>
+                <div class="control-group slider-group">
+                    <label for="pp-slider">Picture Plane Distance</label>
+                    <input type="range" id="pp-slider" min="0.5" max="4.5" step="0.1" value="2.5">
                 </div>
-                <div class="control-group" style="flex-direction: column; align-items: flex-start; margin-top: 15px;">
-                    <label for="sp-slider" style="margin-bottom: 5px;">Station Point Distance (Eye)</label>
-                    <input type="range" id="sp-slider" min="3.0" max="15.0" step="0.5" value="7.0" style="width: 100%;">
+                <div class="control-group slider-group">
+                    <label for="sp-slider">Station Point Distance (Eye)</label>
+                    <input type="range" id="sp-slider" min="3.0" max="15.0" step="0.5" value="7.0">
                 </div>
             </div>
         </div>
