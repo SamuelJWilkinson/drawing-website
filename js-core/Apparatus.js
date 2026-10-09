@@ -74,17 +74,27 @@ if (ppSlider) {
     });
 }
 
+// Moves the eye (camera, marker, line of sight, cones) and notifies listeners.
+// Does not touch zoom: the slider below does that, tools setting a start position may not want it.
+const cameraMovedListeners = [];
+export function onCameraMoved(callback) { cameraMovedListeners.push(callback); }
+
+export function moveStationPoint(z) {
+    cameraPerspective.position.z = z;
+    stationPointMarker.position.z = z;
+    lineOfSight.geometry.attributes.position.array[2] = z;
+    lineOfSight.geometry.attributes.position.needsUpdate = true;
+    lineOfSight.computeLineDistances();
+    cone60.position.z = z; cone90.position.z = z;
+    cameraMovedListeners.forEach(cb => cb());
+}
+
 const spSlider = document.getElementById('sp-slider');
 if (spSlider) {
     spSlider.addEventListener('input', e => {
         const newZ = parseFloat(e.target.value);
-        cameraPerspective.position.z = newZ;
-        stationPointMarker.position.z = newZ;
-        lineOfSight.geometry.attributes.position.array[2] = newZ;
-        lineOfSight.geometry.attributes.position.needsUpdate = true;
-        lineOfSight.computeLineDistances();
-        cone60.position.z = newZ; cone90.position.z = newZ;
-        
+        moveStationPoint(newZ);
+
         const dist = newZ - picturePlane.position.z;
         if (dist > 0.1) {
             cameraPerspective.zoom = dist / 2.5;
