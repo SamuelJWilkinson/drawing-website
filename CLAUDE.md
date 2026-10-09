@@ -24,3 +24,14 @@ Start the server (`.claude/launch.json` has a `site` config, or `python3 -m http
 1. Copy `tools/_template/` to `tools/<name>/` and edit title, description, controls, `tool.js`.
 2. Add `{path, icon, title, description}` to `tools.json`.
 3. Verify as above.
+
+## Working with the owner
+The owner describes drawing skills, not code. Ask about the learning purpose if unclear, and keep explanations non-technical.
+
+- **One session per task.** Follow-up tweaks stay in the session; new features/tools start fresh. Prefer a branch per feature; confirm the tree is clean before starting.
+- **New tool:** expect a description of the skill trained, what is generated/randomised, what the user sees and toggles, the closest existing tool, and how to tell it works. Propose a plan first, then build from `tools/_template/`.
+- **Feature in an existing tool:** needs the tool, the behaviour and the learning purpose. If it could serve other tools, put it in `js-core/`. Ask when a choice changes what the drawing aid teaches (e.g. screen-space vs horizon-relative lines, all vs visible vertices).
+- **Project-wide change** (`js-core/`, shared CSS, sidebar layout, new dependency): plan first, own session, verify every tool.
+- **Refactor:** only to remove real pain (e.g. a third copy of the same code). Never mix with a feature. Behaviour-preserving, small commits, before/after check of every tool.
+- **Rework of a tool with unclear requirements** (e.g. `rotation-grid`, known to need a rewrite with explicit instructions): treat as a new tool: get a written spec and a plan first; do not patch it.
+- Commit in small, separate steps, only when asked.
