@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEMPLATE NAME | Drawing Tools</title>
+    <link rel="stylesheet" href="../../css/shared-layout.css">
+</head>
+<body>
+    <!-- NEW: Master flex container for the whole app -->
+    <div class="app-container">
+        
+        <!-- COLUMN 1: The Left Sidebar -->
+        <div id="sidebar">
+            <a href="../../index.html" class="back-link">← Back to Library</a>
+            <h1>TEMPLATE NAME</h1>
+            <p class="tool-description">One sentence on what to practise.</p>
+
+            <div class="control-panel">
+                <button id="generate-btn">Generate New</button>
+                
+                <hr class="divider">
+                
+                <div class="control-group">
+                    <label><input type="checkbox" id="wireframe-toggle"> Wireframe Mode</label>
+                </div>
+                <div class="control-group">
+                    <label><input type="checkbox" id="horizon-toggle"> Show Horizon Line</label>
+                </div>
+
+                <div class="control-group">
+                    <label><input type="checkbox" id="vanishing-lines-toggle"> Show Vanishing Lines</label>
+                </div>
+
+                <div class="control-group">
+                    <label><input type="checkbox" id="cov-60-toggle"> Show 60° Cone of Vision</label>
+                </div>
+                <div class="control-group">
+                    <label><input type="checkbox" id="cov-90-toggle"> Show 90° Cone of Vision</label>
+                </div>
+
+                <hr class="divider">
+    
+                <div class="section-label">Apparatus Controls</div>
+
+                <div class="control-group slider-group">
+                    <label for="pp-slider">Picture Plane Distance</label>
+                    <!-- The slider goes from Z=0.5 (near eye) to Z=4.5 (near cube) -->
+                    <!-- Default value is 2.5 (halfway) -->
+                    <input type="range" id="pp-slider" min="0.5" max="4.5" step="0.1" value="2.5">
+                </div>
+
+                <div class="control-group slider-group">
+                    <label for="sp-slider">Station Point Distance (Eye)</label>
+                    <!-- The slider goes from Z=3 (very close) to Z=15 (very far) -->
+                    <input type="range" id="sp-slider" min="3.0" max="15.0" step="0.5" value="5.0">
+                </div>
+
+                <hr class="divider">
+    
+                <div class="section-label">Perspective Constraints</div>
+                
+                <div class="control-group">
+                    <label>
+                        <input type="radio" name="perspective-mode" id="mode-3pt" value="3pt" checked> 
+                        Free Tumble (3-Point)
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label>
+                        <input type="radio" name="perspective-mode" id="mode-2pt" value="2pt"> 
+                        Level Spin (2-Point)
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label>
+                        <input type="radio" name="perspective-mode" id="mode-1pt" value="1pt"> 
+                        Straight On (1-Point)
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLUMN 2: The Right Canvas Area -->
+        <div class="canvas-grid">
+            <div id="perspective-container" class="view-box main-view">
+                <h3>1. Drawing View</h3>
+            </div>
+            
+            <div id="top-container" class="view-box sub-view">
+                <h3>2. Top Plan View</h3>
+            </div>
+
+            <div id="meta-container" class="view-box sub-view">
+                <h3>3. Meta 3D View</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script type="module" src="tool.js"></script>
+</body>
+</html>
