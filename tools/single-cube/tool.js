@@ -1,4 +1,5 @@
 import { createFaceColouredCube, createVanishingLines, wireCubeToggles } from '../../js-core/Cube.js';
+import { createVertexInspector, wireVertexInspectToggle } from '../../js-core/VertexInspector.js';
 import { startRenderLoop } from '../../js-core/RenderLoop.js';
 
 // ==========================================
@@ -7,6 +8,7 @@ import { startRenderLoop } from '../../js-core/RenderLoop.js';
 const cube = createFaceColouredCube(1.5);
 const vanishingLines = createVanishingLines();
 vanishingLines.addCube(cube);
+const vertexInspector = createVertexInspector([cube]);
 
 // ==========================================
 // 2. UI CONTROLS
@@ -26,11 +28,13 @@ function randomizeCube() {
     }
     if (!mode1pt) cube.position.set(0, 0, 0);
     vanishingLines.update();
+    vertexInspector.clear();
 }
 
 document.addEventListener('DOMContentLoaded', randomizeCube);
 document.getElementById('generate-btn').addEventListener('click', randomizeCube);
 document.querySelectorAll('input[name="perspective-mode"]').forEach(radio => radio.addEventListener('change', randomizeCube));
 wireCubeToggles([cube], vanishingLines);
+wireVertexInspectToggle(vertexInspector);
 
 startRenderLoop(vanishingLines.group);

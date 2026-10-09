@@ -136,6 +136,18 @@ input[type="checkbox"], input[type="radio"] { width: 18px; height: 18px; cursor:
 
 canvas { display: block; }
 
+/* Vertex inspector overlay on the Drawing View (js-core/VertexInspector.js) */
+.vertex-inspector { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; }
+.vertex-inspector.active { display: block; }
+.vertex-inspector.over-vertex { cursor: pointer; }
+.vertex-inspector line, .vertex-inspector path, .vertex-inspector circle { fill: none; stroke-linecap: round; filter: drop-shadow(0 0 2px #000) drop-shadow(0 0 2px #000); }
+.crosshair { stroke: #ff9900; stroke-width: 1.5; stroke-dasharray: 8 5; }
+.vertex-hover { stroke: rgba(255, 255, 255, 0.7); stroke-width: 2; r: 8; }
+.vertex-selected { fill: #fff !important; stroke: #ff9900; stroke-width: 2; r: 5; }
+.vertex-edge { stroke: #fff; stroke-width: 3; }
+.vertex-arc { stroke: #ff9900; stroke-width: 2; }
+.vertex-label { fill: #fff; font-size: 15px; font-weight: bold; stroke: #000; stroke-width: 4; paint-order: stroke; pointer-events: none; }
+
 /* ========================================= */
 /* 4. SIDEBAR PARTS (used by tool pages)     */
 /* ========================================= */
