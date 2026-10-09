@@ -1,0 +1,20 @@
+[
+    {
+        "path": "tools/single-cube/",
+        "icon": "🧊",
+        "title": "Random Cube Generator",
+        "description": "Practice 3D rotation and perspective construction with a randomized geometric volume."
+    },
+    {
+        "path": "tools/intersecting-cubes/",
+        "icon": "⏹📦",
+        "title": "Cube Intersections",
+        "description": "Practice drawing intersecting cubes."
+    },
+    {
+        "path": "tools/rotation-grid/",
+        "icon": "🎛️",
+        "title": "Rotation Grid",
+        "description": "Study standard drafting angles (15°, 30°, 45°) and observe how position within the cone of vision alters foreshortening."
+    }
+]
