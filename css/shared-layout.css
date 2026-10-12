@@ -148,6 +148,19 @@ canvas { display: block; }
 .vertex-arc { stroke: #ff9900; stroke-width: 2; }
 .vertex-label { fill: #fff; font-size: 15px; font-weight: bold; stroke: #000; stroke-width: 4; paint-order: stroke; pointer-events: none; }
 
+/* Edge inspector overlay on the Drawing View (js-core/EdgeInspector.js) */
+.edge-inspector { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; }
+.edge-inspector.active { display: block; }
+.edge-inspector.over-edge { cursor: pointer; }
+.edge-inspector line, .edge-inspector path { fill: none; stroke-linecap: round; filter: drop-shadow(0 0 2px #000) drop-shadow(0 0 2px #000); }
+.edge-hover { stroke: rgba(255, 255, 255, 0.6); stroke-width: 5; }
+.edge-reference { stroke: #fff; stroke-width: 4; }
+.edge-target { stroke: #ff9900; stroke-width: 4; }
+.edge-ruler { stroke: #ff9900; stroke-width: 2; }
+.edge-label { fill: #fff; font-size: 15px; font-weight: bold; text-anchor: middle; stroke: #000; stroke-width: 4; paint-order: stroke; pointer-events: none; }
+.edge-label-target { fill: #ff9900; }
+.edge-label-other { font-size: 13px; fill: #ccc; }
+
 /* ========================================= */
 /* 4. SIDEBAR PARTS (used by tool pages)     */
 /* ========================================= */

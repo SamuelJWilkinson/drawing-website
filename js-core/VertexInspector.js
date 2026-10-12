@@ -1,5 +1,5 @@
-import { cameraPerspective, rendererPerspective } from './PerspectiveEngine.js';
 import { onCameraMoved } from './Apparatus.js';
+import { viewSize, toPixels, faceVisible, edgeVisible } from './CubeScreen.js';
 
 // ==========================================
 // VERTEX INSPECTOR
@@ -24,8 +24,7 @@ const hide = (...els) => els.forEach(el => el.style.display = 'none');
 
 export function createVertexInspector(cubes) {
     const container = document.getElementById('perspective-container');
-    const width = rendererPerspective.domElement.width / rendererPerspective.getPixelRatio();
-    const height = rendererPerspective.domElement.height / rendererPerspective.getPixelRatio();
+    const { width, height } = viewSize();
 
     // The overlay: crosshair, corner markers, and (up to 3 edges per corner) edge line, arc, label
     const svg = svgElement('svg', 'vertex-inspector');
@@ -53,25 +52,6 @@ export function createVertexInspector(cubes) {
     let hovered = null;
     let selected = null;
     let screenVertices = []; // current pixel positions of the visible corners
-
-    function toPixels(localPoint, cube) {
-        const p = localPoint.clone().applyMatrix4(cube.matrixWorld).project(cameraPerspective);
-        return { x: (p.x * 0.5 + 0.5) * width, y: (-p.y * 0.5 + 0.5) * height };
-    }
-
-    // Does the face on this axis (at the corner's sign) face the eye?
-    function faceVisible(vertex, axis) {
-        const { cube, local } = vertex;
-        const sign = Math.sign(local.getComponent(axis));
-        const faceCentre = new THREE.Vector3().setComponent(axis, sign * cube.userData.size / 2).applyMatrix4(cube.matrixWorld);
-        const normal = new THREE.Vector3().setComponent(axis, sign).transformDirection(cube.matrixWorld);
-        return normal.dot(cameraPerspective.position.clone().sub(faceCentre)) > 0;
-    }
-
-    // The edge along `axis` borders the faces on the other two axes
-    function edgeVisible(vertex, axis) {
-        return [0, 1, 2].some(a => a !== axis && faceVisible(vertex, a));
-    }
 
     function drawSelection(item) {
         const p = item.pos;

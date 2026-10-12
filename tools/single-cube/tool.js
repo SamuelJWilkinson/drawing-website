@@ -1,5 +1,6 @@
 import { createFaceColouredCube, createVanishingLines, wireCubeToggles } from '../../js-core/Cube.js';
 import { createVertexInspector, wireVertexInspectToggle } from '../../js-core/VertexInspector.js';
+import { createEdgeInspector, wireEdgeInspectToggle } from '../../js-core/EdgeInspector.js';
 import { startRenderLoop } from '../../js-core/RenderLoop.js';
 
 // ==========================================
@@ -9,6 +10,7 @@ const cube = createFaceColouredCube(1.5);
 const vanishingLines = createVanishingLines();
 vanishingLines.addCube(cube);
 const vertexInspector = createVertexInspector([cube]);
+const edgeInspector = createEdgeInspector([cube]);
 
 // ==========================================
 // 2. UI CONTROLS
@@ -29,6 +31,7 @@ function randomizeCube() {
     if (!mode1pt) cube.position.set(0, 0, 0);
     vanishingLines.update();
     vertexInspector.clear();
+    edgeInspector.clear();
 }
 
 document.addEventListener('DOMContentLoaded', randomizeCube);
@@ -36,5 +39,17 @@ document.getElementById('generate-btn').addEventListener('click', randomizeCube)
 document.querySelectorAll('input[name="perspective-mode"]').forEach(radio => radio.addEventListener('change', randomizeCube));
 wireCubeToggles([cube], vanishingLines);
 wireVertexInspectToggle(vertexInspector);
+wireEdgeInspectToggle(edgeInspector);
+
+// Both inspectors cover the whole Drawing View, so only one can be on at a time
+const vertexToggle = document.getElementById('vertex-inspect-toggle');
+const edgeToggle = document.getElementById('edge-compare-toggle');
+function switchOffOther(thisToggle, otherToggle) {
+    thisToggle.addEventListener('change', () => {
+        if (thisToggle.checked && otherToggle.checked) { otherToggle.checked = false; otherToggle.dispatchEvent(new Event('change')); }
+    });
+}
+switchOffOther(vertexToggle, edgeToggle);
+switchOffOther(edgeToggle, vertexToggle);
 
 startRenderLoop(vanishingLines.group);
