@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blind Contour | Drawing Tools</title>
+    <link rel="stylesheet" href="../../css/shared-layout.css">
+</head>
+<body>
+    <div class="app-container">
+
+        <!-- COLUMN 1: The Left Sidebar -->
+        <div id="sidebar">
+            <a href="../../index.html" class="back-link">← Back to Library</a>
+            <h1>Blind Contour</h1>
+            <p class="tool-description">Look only at the subject, never at your paper. Let your pencil follow the edges as your eye does.</p>
+
+            <div class="control-panel">
+                <div class="section-label">Subject</div>
+                <!-- Buttons are added by tool.js from subjects.json -->
+                <div id="category-buttons" class="button-row"></div>
+                <button id="next-btn">Next Image</button>
+
+                <hr class="divider">
+
+                <div class="section-label">Timer</div>
+                <div id="timer-buttons" class="button-row">
+                    <button data-seconds="60">1 min</button>
+                    <button data-seconds="120">2 min</button>
+                    <button data-seconds="180">3 min</button>
+                    <button data-seconds="300">5 min</button>
+                    <button data-seconds="480">8 min</button>
+                    <button data-seconds="600">10 min</button>
+                </div>
+                <div id="timer-display" class="timer-display">3:00</div>
+                <div class="button-row">
+                    <button id="start-btn">Start</button>
+                    <button id="reset-btn">Reset</button>
+                </div>
+                <div class="control-group">
+                    <label><input type="checkbox" id="hide-countdown-toggle"> Hide countdown</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLUMN 2: The Reference Image -->
+        <div class="reference-area">
+            <img id="reference-image" class="reference-image" alt="Reference subject to draw">
+            <p id="reference-message" class="reference-message">Loading…</p>
+            <p id="reference-caption" class="reference-caption"></p>
+        </div>
+
+    </div>
+
+    <script type="module" src="tool.js"></script>
+</body>
+</html>

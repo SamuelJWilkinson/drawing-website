@@ -1,6 +1,7 @@
 import { createFaceColouredCube, createVanishingLines, wireCubeToggles } from '../../js-core/Cube.js';
 import { createVertexInspector, wireVertexInspectToggle } from '../../js-core/VertexInspector.js';
 import { createEdgeInspector, wireEdgeInspectToggle } from '../../js-core/EdgeInspector.js';
+import { createVerifier, wireVerifyButton } from '../../js-core/Verify.js';
 import { startRenderLoop } from '../../js-core/RenderLoop.js';
 
 // ==========================================
@@ -40,6 +41,7 @@ document.querySelectorAll('input[name="perspective-mode"]').forEach(radio => rad
 wireCubeToggles([cube], vanishingLines);
 wireVertexInspectToggle(vertexInspector);
 wireEdgeInspectToggle(edgeInspector);
+wireVerifyButton(createVerifier(cube));
 
 // Both inspectors cover the whole Drawing View, so only one can be on at a time
 const vertexToggle = document.getElementById('vertex-inspect-toggle');

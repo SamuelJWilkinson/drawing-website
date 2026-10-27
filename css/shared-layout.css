@@ -22,11 +22,21 @@ header {
 header h1 { margin: 0 0 10px 0; color: #fff; }
 header p { color: #aaa; margin: 0; }
 
+.category-heading {
+    max-width: 1200px;
+    margin: 40px auto 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #aaa;
+    text-transform: uppercase;
+}
+
 .tools-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
-    padding: 40px;
+    padding: 20px 40px;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -161,6 +171,33 @@ canvas { display: block; }
 .edge-label-target { fill: #ff9900; }
 .edge-label-other { font-size: 13px; fill: #ccc; }
 
+/* Verify panel (js-core/Verify.js) */
+#verify-btn { width: 100%; }
+.verify-modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); display: none; align-items: center; justify-content: center; z-index: 100; }
+.verify-modal.open { display: flex; }
+.verify-panel { background: #1a1a1a; border: 1px solid #444; border-radius: 8px; padding: 20px; width: min(1100px, 94vw); max-height: 94vh; overflow: auto; box-sizing: border-box; }
+.verify-header { display: flex; justify-content: space-between; align-items: center; }
+.verify-header h2 { margin: 0; font-size: 20px; }
+.verify-hint { color: #bbb; font-size: 14px; line-height: 1.5; margin: 10px 0 15px 0; }
+.verify-body { display: flex; gap: 20px; align-items: flex-start; }
+.verify-photo { position: relative; flex: 1; min-width: 0; background: #000; border-radius: 6px; overflow: hidden; }
+.verify-photo video, .verify-photo canvas { width: 100%; display: block; }
+.verify-marks { position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: crosshair; }
+.verify-marks line, .verify-marks circle { filter: drop-shadow(0 0 2px #000); }
+.mark-dot { fill: #fff; stroke: #ff9900; stroke-width: 2; r: 6; }
+.mark-number { fill: #fff; font-size: 24px; font-weight: bold; stroke: #000; stroke-width: 5; paint-order: stroke; pointer-events: none; }
+.mark-true { stroke: #44ff44; stroke-width: 3; stroke-linecap: round; }
+.mark-hidden, .guide-hidden { stroke-dasharray: 8 6; opacity: 0.7; }
+.mark-miss { stroke: #ff9900; stroke-width: 3; stroke-linecap: round; }
+.verify-guide { width: 220px; height: 220px; flex-shrink: 0; background: #2a2a2a; border: 1px solid #444; border-radius: 6px; }
+.guide-edge { stroke: #aaa; stroke-width: 2; }
+.guide-dot { stroke: #000; stroke-width: 1; }
+.guide-todo { fill: #555; }
+.guide-done { fill: #3a7d3a; }
+.guide-next { fill: #ff9900; }
+.guide-number { fill: #fff; font-size: 12px; font-weight: bold; text-anchor: middle; pointer-events: none; }
+.verify-actions { display: flex; gap: 10px; margin-top: 15px; }
+
 /* ========================================= */
 /* 4. SIDEBAR PARTS (used by tool pages)     */
 /* ========================================= */
@@ -171,3 +208,27 @@ canvas { display: block; }
 .slider-group + .slider-group { margin-top: 15px; }
 .slider-group label { margin-bottom: 5px; }
 .slider-group input[type="range"] { width: 100%; }
+
+/* ========================================= */
+/* 5. OBSERVATION TOOLS (tools/blind-contour) */
+/* ========================================= */
+.button-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.button-row button.active { background-color: #007bff; border-color: #007bff; color: #fff; }
+.timer-display { font-size: 48px; font-weight: bold; text-align: center; font-variant-numeric: tabular-nums; }
+.timer-display.finished { color: #ff9900; }
+
+.reference-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    box-sizing: border-box;
+    min-width: 0;
+}
+.reference-image { display: none; max-width: 100%; max-height: calc(100vh - 140px); border-radius: 6px; background: #fff; }
+.reference-image.visible { display: block; }
+.reference-message { color: #aaa; }
+.reference-caption { color: #aaa; font-size: 13px; text-align: center; margin: 12px 0 0 0; max-width: 700px; }
+.reference-caption a { color: #aaa; }

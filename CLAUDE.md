@@ -22,7 +22,7 @@ Start the server (`.claude/launch.json` has a `site` config, or `python3 -m http
 
 ## Adding a tool
 1. Copy `tools/_template/` to `tools/<name>/` and edit title, description, controls, `tool.js`.
-2. Add `{path, icon, title, description}` to `tools.json`.
+2. Add `{category, path, icon, title, description}` to `tools.json` (category is `Perspective` or `Observation`; a new name makes a new home-page section).
 3. Verify as above.
 
 ## Working with the owner
