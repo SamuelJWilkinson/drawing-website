@@ -22,11 +22,21 @@ header {
 header h1 { margin: 0 0 10px 0; color: #fff; }
 header p { color: #aaa; margin: 0; }
 
+.category-heading {
+    max-width: 1200px;
+    margin: 40px auto 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #aaa;
+    text-transform: uppercase;
+}
+
 .tools-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
-    padding: 40px;
+    padding: 20px 40px;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -198,3 +208,27 @@ canvas { display: block; }
 .slider-group + .slider-group { margin-top: 15px; }
 .slider-group label { margin-bottom: 5px; }
 .slider-group input[type="range"] { width: 100%; }
+
+/* ========================================= */
+/* 5. OBSERVATION TOOLS (tools/blind-contour) */
+/* ========================================= */
+.button-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.button-row button.active { background-color: #007bff; border-color: #007bff; color: #fff; }
+.timer-display { font-size: 48px; font-weight: bold; text-align: center; font-variant-numeric: tabular-nums; }
+.timer-display.finished { color: #ff9900; }
+
+.reference-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    box-sizing: border-box;
+    min-width: 0;
+}
+.reference-image { display: none; max-width: 100%; max-height: calc(100vh - 140px); border-radius: 6px; background: #fff; }
+.reference-image.visible { display: block; }
+.reference-message { color: #aaa; }
+.reference-caption { color: #aaa; font-size: 13px; text-align: center; margin: 12px 0 0 0; max-width: 700px; }
+.reference-caption a { color: #aaa; }
