@@ -26,5 +26,12 @@
         "icon": "👁️",
         "title": "Blind Contour",
         "description": "Draw the edges of a museum object without looking at your paper, against a timer."
+    },
+    {
+        "category": "Verify",
+        "path": "tools/verify-cubes/",
+        "icon": "🔍",
+        "title": "Verify Cubes",
+        "description": "Photograph a cube you drew and see the lines the tool finds in it."
     }
 ]

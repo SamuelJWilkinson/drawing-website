@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Cubes | Drawing Tools</title>
+    <link rel="stylesheet" href="../../css/shared-layout.css">
+</head>
+<body>
+    <div class="app-container">
+
+        <!-- COLUMN 1: The Left Sidebar -->
+        <div id="sidebar">
+            <a href="../../index.html" class="back-link">← Back to Library</a>
+            <h1>Verify Cubes</h1>
+            <p class="tool-description">Photograph a drawing of a cube. The tool finds the lines you drew and traces them, so you can see what it sees.</p>
+
+            <div class="control-panel">
+                <div class="section-label">Your drawing</div>
+                <button id="choose-btn">Choose a photo</button>
+                <input type="file" id="photo-input" accept="image/*" class="file-input">
+                <button id="camera-btn">Use the camera</button>
+                <button id="capture-btn" class="hidden">Capture photo</button>
+
+                <hr class="divider">
+
+                <div class="control-group">
+                    <label><input type="checkbox" id="outlines-toggle" checked> Show found lines</label>
+                </div>
+                <div class="control-group">
+                    <label><input type="checkbox" id="ink-toggle"> Show what it counts as pen</label>
+                </div>
+
+                <div class="control-group slider-group">
+                    <label for="sensitivity-slider">Pen sensitivity (higher = fainter lines)</label>
+                    <!-- How much darker than the paper around it a pixel must be: left = faint pencil, right = only dark pen -->
+                    <input type="range" id="sensitivity-slider" min="5" max="60" step="1" value="25">
+                </div>
+                <div class="control-group slider-group">
+                    <label for="min-length-slider">Shortest line to keep</label>
+                    <input type="range" id="min-length-slider" min="20" max="200" step="5" value="60">
+                </div>
+
+                <p id="status" class="status">Choose a photo to begin.</p>
+            </div>
+        </div>
+
+        <!-- COLUMN 2: The Photo -->
+        <div class="reference-area">
+            <div id="stage" class="verify-stage">
+                <video id="camera-video" autoplay playsinline muted></video>
+                <canvas id="photo-canvas"></canvas>
+                <canvas id="ink-canvas" class="ink-canvas"></canvas>
+                <svg id="outline-layer" class="outline-layer"></svg>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="module" src="tool.js"></script>
+</body>
+</html>
