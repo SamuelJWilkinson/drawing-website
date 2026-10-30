@@ -1,0 +1,67 @@
+# Collects line drawings for the Upside Down tool, in the cloud.
+# Needs a repository secret named PIXABAY_API_KEY (Settings > Secrets and variables > Actions).
+# Runs when this file is pushed to the upside-down branch (the test run), or by hand from the
+# Actions tab once the file is on the default branch. Results arrive as a pull request.
+name: Collect drawings
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'How many drawings to keep'
+        default: '50'
+      max_downloads:
+        description: 'Stop after downloading this many candidates'
+        default: '250'
+  push:
+    branches: [upside-down]
+    paths: ['.github/workflows/collect-drawings.yml']
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: pipeline/requirements.txt
+
+      - run: pip install -r pipeline/requirements.txt
+
+      - name: Check the key is set
+        env:
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+        run: test -n "$PIXABAY_API_KEY" || { echo "::error::Add a repository secret named PIXABAY_API_KEY, then re-run this job"; exit 1; }
+
+      - name: Collect drawings
+        env:
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+          TARGET: ${{ inputs.target || '50' }}
+          MAX_DOWNLOADS: ${{ inputs.max_downloads || '250' }}
+          LABEL: run-${{ github.run_id }}
+        run: python pipeline/collect.py --target "$TARGET" --max-downloads "$MAX_DOWNLOADS" --label "$LABEL"
+
+      - name: Open a pull request with the results
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE: ${{ github.ref_name }}
+          LABEL: run-${{ github.run_id }}
+        run: |
+          branch="drawings-$LABEL"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add tools/upside-down pipeline/reports
+          git commit -m "Add collected drawings ($LABEL)"
+          git push origin "$branch"
+          gh pr create --base "$BASE" --head "$branch" --title "Collected drawings ($LABEL)" \
+            --body-file "pipeline/reports/$LABEL.md" \
+            || echo "Couldn't open the pull request (check Settings > Actions > General > 'Allow GitHub Actions to create and approve pull requests'). The branch $branch was pushed."
