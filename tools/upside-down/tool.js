@@ -154,13 +154,15 @@ async function reveal() {
     const shown = current;
     revealData = revealData || await fetch('reveal.json').then(r => r.json()).catch(() => ({}));
     const info = revealData[shown.id];
-    if (info && current === shown) {
+    if (info && current === shown && info.creditUrl) {
         const link = document.createElement('a');
         link.href = info.creditUrl;
         link.target = '_blank';
         link.rel = 'noopener';
         link.textContent = info.credit;
         caption.append(link);
+    } else if (info && current === shown) {
+        caption.textContent = info.credit; // no link for this one
     }
 }
 

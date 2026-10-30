@@ -1,0 +1,6 @@
+{
+ "drawings": [
+  { "id": "standin-1", "file": "img/standin-1.png", "source": "class", "width": 434, "height": 599 },
+  { "id": "standin-2", "file": "img/standin-2.jpg", "source": "class", "width": 434, "height": 460 }
+ ]
+}
