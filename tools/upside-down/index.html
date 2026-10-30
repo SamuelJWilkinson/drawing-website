@@ -20,6 +20,9 @@
                     <button id="skip-btn">Skip</button>
                     <button id="next-btn">Next Drawing</button>
                 </div>
+                <div class="control-group">
+                    <label><input type="checkbox" id="crosshair-toggle"> Show crosshair</label>
+                </div>
 
                 <hr class="divider">
 
@@ -61,7 +64,10 @@
 
         <!-- COLUMN 2: The Drawing (saved upside down; Reveal turns it upright) -->
         <div class="reference-area" id="reference-area">
-            <img id="reference-image" class="reference-image protected-image" alt="" draggable="false">
+            <div class="drawing-frame">
+                <img id="reference-image" class="reference-image protected-image" alt="" draggable="false">
+                <div id="crosshair" class="crosshair"></div>
+            </div>
             <p id="reference-message" class="reference-message">Loading…</p>
             <p id="reference-caption" class="reference-caption"></p>
         </div>

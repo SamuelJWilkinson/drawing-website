@@ -252,3 +252,11 @@ canvas { display: block; }
 .protected-image { pointer-events: none; user-select: none; -webkit-user-drag: none; -webkit-touch-callout: none; }
 .reference-image.revealed { transform: rotate(180deg); }
 .small-note { color: #aaa; font-size: 13px; margin: 0; }
+
+/* Upside Down crosshair: a thin grey cross over the middle of the drawing (the frame is exactly as big as the picture) */
+.drawing-frame { position: relative; display: block; width: fit-content; max-width: 100%; }
+.crosshair { position: absolute; inset: 0; pointer-events: none; display: none; }
+.crosshair.on { display: block; }
+.crosshair::before, .crosshair::after { content: ""; position: absolute; background: #808080; opacity: 0.85; }
+.crosshair::before { left: 50%; top: 0; bottom: 0; width: 2px; transform: translateX(-50%); }
+.crosshair::after { top: 50%; left: 0; right: 0; height: 2px; transform: translateY(-50%); }

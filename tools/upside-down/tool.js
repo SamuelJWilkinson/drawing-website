@@ -21,6 +21,8 @@ const referenceArea = document.getElementById('reference-area');
 const skipBtn = document.getElementById('skip-btn');
 const nextBtn = document.getElementById('next-btn');
 const revealBtn = document.getElementById('reveal-btn');
+const crosshair = document.getElementById('crosshair');
+const crosshairToggle = document.getElementById('crosshair-toggle');
 const ratingPanel = document.getElementById('rating-panel');
 const ratingButtons = [...document.querySelectorAll('#rating-buttons button')];
 const libraryNote = document.getElementById('library-note');
@@ -35,6 +37,22 @@ const hideCountdownToggle = document.getElementById('hide-countdown-toggle');
 // The drawing can't be right-clicked, dragged or selected, so it can't be opened in a new tab.
 // ==========================================
 ['contextmenu', 'dragstart', 'selectstart'].forEach(name => referenceArea.addEventListener(name, event => event.preventDefault()));
+
+// ==========================================
+// CROSSHAIR
+// An optional grey cross through the middle of the drawing, as a reference for scale.
+// It stays put when Reveal rotates the picture, because the middle is the middle either way.
+// ==========================================
+const CROSSHAIR_KEY = 'upside-down-crosshair';
+
+function showCrosshair(on) {
+    crosshair.classList.toggle('on', on);
+    try { localStorage.setItem(CROSSHAIR_KEY, on ? 'on' : 'off'); } catch (error) { /* still works this visit */ }
+}
+
+try { crosshairToggle.checked = localStorage.getItem(CROSSHAIR_KEY) === 'on'; } catch (error) { /* stays off */ }
+crosshair.classList.toggle('on', crosshairToggle.checked);
+crosshairToggle.addEventListener('change', () => showCrosshair(crosshairToggle.checked));
 
 // ==========================================
 // RATINGS
