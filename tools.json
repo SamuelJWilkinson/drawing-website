@@ -33,5 +33,12 @@
         "icon": "🔍",
         "title": "Verify Cubes",
         "description": "Photograph a cube you drew and see the lines the tool finds in it."
+    },
+    {
+        "category": "Observation",
+        "path": "tools/upside-down/",
+        "icon": "🙃",
+        "title": "Upside Down",
+        "description": "Copy a line drawing shown upside down, so you draw the lines you see instead of what you think the subject is."
     }
 ]

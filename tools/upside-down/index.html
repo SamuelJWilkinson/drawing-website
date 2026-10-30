@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upside Down | Drawing Tools</title>
+    <link rel="stylesheet" href="../../css/shared-layout.css">
+</head>
+<body>
+    <div class="app-container">
+
+        <!-- COLUMN 1: The Left Sidebar -->
+        <div id="sidebar">
+            <a href="../../index.html" class="back-link">← Back to Library</a>
+            <h1>Upside Down</h1>
+            <p class="tool-description">Copy the drawing exactly as you see it, line by line. Upside down, you can't name what you're drawing, so you only draw lines, curves and angles.</p>
+
+            <div class="control-panel">
+                <div class="button-row">
+                    <button id="skip-btn">Skip</button>
+                    <button id="next-btn">Next Drawing</button>
+                </div>
+
+                <hr class="divider">
+
+                <div class="section-label">Timer</div>
+                <div id="timer-buttons" class="button-row">
+                    <button data-seconds="300">5 min</button>
+                    <button data-seconds="600">10 min</button>
+                    <button data-seconds="900">15 min</button>
+                    <button data-seconds="1200">20 min</button>
+                    <button data-seconds="1800">30 min</button>
+                </div>
+                <div id="timer-display" class="timer-display">10:00</div>
+                <div class="button-row">
+                    <button id="start-btn">Start</button>
+                    <button id="reset-btn">Reset</button>
+                </div>
+                <div class="control-group">
+                    <label><input type="checkbox" id="hide-countdown-toggle"> Hide countdown</label>
+                </div>
+
+                <hr class="divider">
+
+                <button id="reveal-btn" disabled>Reveal</button>
+                <div id="rating-panel" hidden>
+                    <div class="section-label">Rate this drawing to copy</div>
+                    <div id="rating-buttons" class="button-row">
+                        <button data-rating="1">1</button>
+                        <button data-rating="2">2</button>
+                        <button data-rating="3">3</button>
+                        <button data-rating="4">4</button>
+                        <button data-rating="5">5</button>
+                    </div>
+                    <p class="small-note">1 = don't show me this again, 5 = show me more like it.</p>
+                </div>
+
+                <p id="library-note" class="small-note"></p>
+            </div>
+        </div>
+
+        <!-- COLUMN 2: The Drawing (saved upside down; Reveal turns it upright) -->
+        <div class="reference-area" id="reference-area">
+            <img id="reference-image" class="reference-image protected-image" alt="" draggable="false">
+            <p id="reference-message" class="reference-message">Loading…</p>
+            <p id="reference-caption" class="reference-caption"></p>
+        </div>
+
+    </div>
+
+    <script type="module" src="tool.js"></script>
+</body>
+</html>
