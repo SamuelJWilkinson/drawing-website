@@ -8,3 +8,5 @@ Collects line drawings for the Upside Down tool. It runs in GitHub Actions (`.gi
 - `selftest.py`: checks the pixel checks on drawings made in memory. Run `python pipeline/selftest.py`.
 
 The Pixabay key is a repository secret named `PIXABAY_API_KEY`. Never put it in a file.
+
+**Status:** parked. The automatic Pixabay collection is not in use yet, and the tool currently shows two stand-in drawings. See "Open work" in `CLAUDE.md`.
