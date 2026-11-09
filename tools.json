@@ -15,6 +15,13 @@
     },
     {
         "category": "Perspective",
+        "path": "tools/two-boxes/",
+        "icon": "📦📦",
+        "title": "Two Boxes",
+        "description": "Draw two boxes of different sizes, turned to different angles, on one ground plane, and change the height of the eye to see how the view shifts."
+    },
+    {
+        "category": "Perspective",
         "path": "tools/rotation-grid/",
         "icon": "🎛️",
         "title": "Rotation Grid",

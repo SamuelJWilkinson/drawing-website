@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Boxes | Drawing Tools</title>
+    <link rel="stylesheet" href="../../css/shared-layout.css">
+</head>
+<body>
+    <div class="app-container">
+
+        <div id="sidebar">
+            <a href="../../index.html" class="back-link">← Back to Library</a>
+            <h1>Two Boxes</h1>
+            <p class="tool-description">Draw two boxes of different sizes resting on the same ground, turned to different angles. Raise and lower the eye to see how the horizon and the boxes change.</p>
+
+            <div class="control-panel">
+                <button id="generate-btn">Generate New Boxes</button>
+
+                <hr class="divider">
+                <div class="section-label">Eye Height</div>
+
+                <div class="control-group slider-group">
+                    <label for="pitch-slider">Looking down: <span id="pitch-value"></span>°</label>
+                    <!-- The eye swings in an arc around the boxes, always looking at their centre -->
+                    <input type="range" id="pitch-slider" min="0" max="85" step="1" value="25">
+                </div>
+
+                <hr class="divider">
+                <div class="control-group"><label><input type="checkbox" id="wireframe-toggle"> Wireframe Mode</label></div>
+                <div class="control-group"><label><input type="checkbox" id="ground-toggle" checked> Show Ground Grid</label></div>
+                <div class="control-group"><label><input type="checkbox" id="horizon-toggle"> Show Horizon Line</label></div>
+                <div class="control-group"><label><input type="checkbox" id="vanishing-lines-toggle"> Show Vanishing Lines</label></div>
+                <div class="control-group"><label><input type="checkbox" id="cov-60-toggle"> Show 60° Cone of Vision</label></div>
+                <div class="control-group"><label><input type="checkbox" id="cov-90-toggle"> Show 90° Cone of Vision</label></div>
+
+                <hr class="divider">
+                <div class="section-label">Step by Step</div>
+                <button id="walk-start-btn">Walk Me Through This View</button>
+                <div id="walk-panel" class="walk-panel hidden">
+                    <div id="walk-count" class="walk-count"></div>
+                    <h2 id="walk-title" class="walk-title"></h2>
+                    <p id="walk-text" class="walk-text"></p>
+                    <div class="button-row">
+                        <button id="walk-back-btn">◀ Back</button>
+                        <button id="walk-next-btn">Next ▶</button>
+                    </div>
+                    <div class="control-group walk-zoom"><label><input type="checkbox" id="walk-zoom-toggle"> Zoom out to see vanishing points</label></div>
+                    <button id="walk-exit-btn">Exit Walkthrough</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="canvas-grid">
+            <div id="perspective-container" class="view-box main-view"><h3>1. Drawing View</h3></div>
+            <div id="top-container" class="view-box sub-view"><h3>2. Top Plan View</h3></div>
+            <div id="meta-container" class="view-box sub-view"><h3>3. Meta 3D View</h3></div>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script type="module" src="tool.js"></script>
+</body>
+</html>
