@@ -89,6 +89,27 @@ export function moveStationPoint(z) {
     cameraMovedListeners.forEach(cb => cb());
 }
 
+// Puts the eye at `eye` looking at `target`. The picture plane sits halfway between them,
+// square to the line of sight, and the horizon rises or falls with the eye.
+// For tools that orbit the eye; don't combine with #pp-slider / #sp-slider, which only slide along z.
+export function aimStationPoint(eye, target) {
+    cameraPerspective.position.copy(eye);
+    cameraPerspective.lookAt(target);
+    stationPointMarker.position.copy(eye);
+
+    const los = lineOfSight.geometry.attributes.position;
+    los.setXYZ(0, eye.x, eye.y, eye.z);
+    los.setXYZ(1, target.x, target.y, target.z);
+    los.needsUpdate = true;
+    lineOfSight.computeLineDistances();
+
+    picturePlane.position.lerpVectors(eye, target, 0.5);
+    picturePlane.quaternion.copy(cameraPerspective.quaternion);
+    [cone60, cone90].forEach(c => { c.position.copy(eye); c.quaternion.copy(cameraPerspective.quaternion); });
+    horizonLine.position.y = eye.y;
+    cameraMovedListeners.forEach(cb => cb());
+}
+
 const spSlider = document.getElementById('sp-slider');
 if (spSlider) {
     spSlider.addEventListener('input', e => {

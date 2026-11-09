@@ -260,3 +260,11 @@ canvas { display: block; }
 .crosshair::before, .crosshair::after { content: ""; position: absolute; background: #808080; opacity: 0.85; }
 .crosshair::before { left: 50%; top: 0; bottom: 0; width: 2px; transform: translateX(-50%); }
 .crosshair::after { top: 50%; left: 0; right: 0; height: 2px; transform: translateY(-50%); }
+
+/* Two Boxes walkthrough: construction lines drawn over the Drawing View, and the step text in the sidebar */
+.step-overlay { position: absolute; top: 0; left: 0; pointer-events: none; }
+.walk-panel { display: flex; flex-direction: column; gap: 10px; }
+.walk-count { color: #aaa; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+.walk-title { margin: 0; font-size: 16px; }
+.walk-text { margin: 0; color: #eee; font-size: 14px; line-height: 1.45; }
+.walk-zoom { font-size: 13px; }
