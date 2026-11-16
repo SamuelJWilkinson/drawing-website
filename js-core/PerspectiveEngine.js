@@ -7,11 +7,27 @@ export const scene = new THREE.Scene();
 scene.background = new THREE.Color('#222222');
 
 // 1. Drawing View (Left)
-export const cameraPerspective = new THREE.PerspectiveCamera(45, 820 / 500, 0.1, 1000); 
+export const cameraPerspective = new THREE.PerspectiveCamera(45, 820 / 500, 0.1, 1000);
 cameraPerspective.position.z = 5;
 export const rendererPerspective = new THREE.WebGLRenderer({ antialias: true });
-rendererPerspective.setSize(820, 500); 
-document.getElementById('perspective-container').appendChild(rendererPerspective.domElement);
+const drawingContainer = document.getElementById('perspective-container');
+drawingContainer.appendChild(rendererPerspective.domElement);
+
+// The Drawing View fills its box (set in the CSS). Whenever the box changes size (e.g. the window is resized),
+// resize the picture to match and fix the camera's shape so nothing looks stretched.
+const resizeListeners = [];
+export function onDrawingResize(callback) { resizeListeners.push(callback); }
+
+function resizeDrawingView() {
+    const width = drawingContainer.clientWidth, height = drawingContainer.clientHeight;
+    if (width === 0 || height === 0) return;
+    rendererPerspective.setSize(width, height);
+    cameraPerspective.aspect = width / height;
+    cameraPerspective.updateProjectionMatrix();
+    resizeListeners.forEach(callback => callback(width, height));
+}
+new ResizeObserver(resizeDrawingView).observe(drawingContainer);
+resizeDrawingView();
 
 // 2. Top Plan View (Right)
 export const cameraTop = new THREE.OrthographicCamera(-4, 4, 4, -4, 0.1, 100);

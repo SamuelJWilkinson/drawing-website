@@ -1,4 +1,5 @@
-import { cameraPerspective } from '../../js-core/PerspectiveEngine.js';
+import { cameraPerspective, onDrawingResize } from '../../js-core/PerspectiveEngine.js';
+import { viewSize } from '../../js-core/CubeScreen.js';
 
 // ==========================================
 // STEP-BY-STEP WALKTHROUGH
@@ -6,7 +7,7 @@ import { cameraPerspective } from '../../js-core/PerspectiveEngine.js';
 // the Drawing View, one step at a time. The view is frozen while it runs.
 // ==========================================
 
-const W = 820, H = 500;          // size of the Drawing View
+let W = 820, H = 500;            // size of the Drawing View (kept up to date by setupWalkthrough)
 const ZOOM_OUT = 0.2;            // "Zoom out" shows your page at a fifth of its size
 const COL = { horizon: '#ffffff', vp3: '#44ff44', A: '#ffaa44', B: '#44ccff', check: '#ff66ff', page: '#888888' };
 
@@ -302,6 +303,7 @@ const STEPS = [
 // ==========================================
 export function setupWalkthrough(boxes) {
     const canvas = document.createElement('canvas');
+    ({ width: W, height: H } = viewSize());
     canvas.width = W; canvas.height = H;
     canvas.className = 'step-overlay hidden';
     document.getElementById('perspective-container').prepend(canvas); // before the title, so the title stays on top
@@ -359,6 +361,13 @@ export function setupWalkthrough(boxes) {
         panel.classList.add('hidden');
         canvas.classList.add('hidden');
     }
+
+    // The Drawing View changed size: make the overlay match and draw the step again
+    onDrawingResize(() => {
+        ({ width: W, height: H } = viewSize());
+        canvas.width = W; canvas.height = H;
+        if (!canvas.classList.contains('hidden')) render();
+    });
 
     startBtn.addEventListener('click', start);
     document.getElementById('walk-exit-btn').addEventListener('click', exit);

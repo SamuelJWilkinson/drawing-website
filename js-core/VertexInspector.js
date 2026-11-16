@@ -1,4 +1,5 @@
 import { onCameraMoved } from './Apparatus.js';
+import { onDrawingResize } from './PerspectiveEngine.js';
 import { viewSize, toPixels, faceVisible, edgeVisible } from './CubeScreen.js';
 
 // ==========================================
@@ -24,7 +25,7 @@ const hide = (...els) => els.forEach(el => el.style.display = 'none');
 
 export function createVertexInspector(cubes) {
     const container = document.getElementById('perspective-container');
-    const { width, height } = viewSize();
+    let { width, height } = viewSize(); // follows the Drawing View when it is resized
 
     // The overlay: crosshair, corner markers, and (up to 3 edges per corner) edge line, arc, label
     const svg = svgElement('svg', 'vertex-inspector');
@@ -170,6 +171,11 @@ export function createVertexInspector(cubes) {
     function clear() { selected = null; update(); }
 
     onCameraMoved(update);
+    onDrawingResize(() => {
+        ({ width, height } = viewSize());
+        svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+        update();
+    });
     hideSelection();
     hide(hoverDot);
     return { setEnabled, clear, update };

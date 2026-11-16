@@ -64,30 +64,35 @@ header p { color: #aaa; margin: 0; }
 /* ========================================= */
 .app-container {
     display: flex;
-    min-height: 100vh;
+    height: 100vh;      /* the page itself never scrolls: the sidebar and the main area each scroll on their own */
     width: 100%;
+    overflow: hidden;
 }
 
 #sidebar {
     width: 320px;
+    flex-shrink: 0;
     padding: 40px 20px;
     background-color: #111;
     border-right: 1px solid #333;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 #sidebar h1 { margin: 0 0 20px 0; font-size: 24px; line-height: 1.3; }
 
+/* The main area scrolls on its own: the Drawing View fills the window, the two small views are below it */
 .canvas-grid {
-    display: grid;
-    grid-template-columns: 400px 400px;
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
-    padding: 40px;
-    align-content: start;
-    justify-content: center;
-    flex-grow: 1;
+    padding: 20px;
+    align-content: flex-start;
+    flex: 1;
+    min-width: 0;
+    overflow-y: auto;
     box-sizing: border-box;
 }
 
@@ -124,12 +129,13 @@ input[type="checkbox"], input[type="radio"] { width: 18px; height: 18px; cursor:
 }
 
 .main-view {
-    grid-column: 1 / span 2; 
-    width: 820px;
-    height: 500px;
+    flex: 1 1 100%;
+    min-width: 0;
+    height: calc(100vh - 40px);   /* the whole visible area (minus the main area's padding) */
+    min-height: 300px;
 }
 
-.sub-view { width: 400px; height: 400px; }
+.sub-view { flex: 0 0 400px; width: 400px; height: 400px; }
 
 .view-box h3 {
     position: absolute; 
@@ -220,6 +226,7 @@ canvas.pannable { cursor: grab; }
 
 .reference-area {
     flex-grow: 1;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center;

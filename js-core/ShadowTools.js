@@ -1,4 +1,4 @@
-import { scene, cameraPerspective, cameraTop, cameraMeta, rendererPerspective } from './PerspectiveEngine.js';
+import { scene, cameraPerspective, cameraTop, cameraMeta, rendererPerspective, onDrawingResize } from './PerspectiveEngine.js';
 import { aimStationPoint } from './Apparatus.js';
 
 // ==========================================
@@ -9,16 +9,17 @@ import { aimStationPoint } from './Apparatus.js';
 export const PLANE_SIZE = 12;
 
 // The flat plane with its grid, and the light (a bright ball; the tool moves it up and down)
-export function createShadowStage() {
+// (size is optional: a tool that needs a bigger plane can pass its own)
+export function createShadowStage(size = PLANE_SIZE) {
     const plane = new THREE.Mesh(
-        new THREE.PlaneGeometry(PLANE_SIZE, PLANE_SIZE),
+        new THREE.PlaneGeometry(size, size),
         new THREE.MeshBasicMaterial({ color: 0x3a3f47 })
     );
     plane.rotation.x = -Math.PI / 2;
     plane.position.y = -0.01; // just under the grid and shadows, so they don't flicker
     scene.add(plane);
 
-    const ground = new THREE.GridHelper(PLANE_SIZE, PLANE_SIZE, 0x888888, 0x555555);
+    const ground = new THREE.GridHelper(size, size, 0x888888, 0x555555);
     scene.add(ground);
 
     const light = new THREE.Mesh(new THREE.SphereGeometry(0.25, 24, 24), new THREE.MeshBasicMaterial({ color: 0xffee66 }));
@@ -133,7 +134,7 @@ export function setupShadowView({ eyeDistance, lookAt, zoom }) {
 // Call after setupShadowView, which sets the starting zoom.
 export function setupDrawingZoom() {
     const canvas = rendererPerspective.domElement;
-    const size = rendererPerspective.getSize(new THREE.Vector2());
+    const size = rendererPerspective.getSize(new THREE.Vector2()); // kept up to date by onDrawingResize below
     const baseZoom = cameraPerspective.zoom; // the zoom that shows the whole scene
     const slider = document.getElementById('zoom-slider');
     const value = document.getElementById('zoom-value');
@@ -188,5 +189,7 @@ export function setupDrawingZoom() {
     });
     canvas.addEventListener('pointerup', () => dragging = null);
 
+    // The Drawing View changed size: measure again and put the picture back in range
+    onDrawingResize((width, height) => { size.set(width, height); apply(); });
     apply();
 }
