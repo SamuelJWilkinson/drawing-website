@@ -28,6 +28,27 @@
         "description": "Study standard drafting angles (15°, 30°, 45°) and observe how position within the cone of vision alters foreshortening."
     },
     {
+        "category": "Shadows",
+        "path": "tools/shadow-local-light/",
+        "icon": "💡",
+        "title": "Shadow from a Local Light",
+        "description": "Find where a stick's shadow falls on a plane when the light is close by, and watch it change as the light moves up and down."
+    },
+    {
+        "category": "Shadows",
+        "path": "tools/shadow-multi-level/",
+        "icon": "🧊💡",
+        "title": "Shadows on Several Levels",
+        "description": "Find the shadows of sticks standing on blocks of different heights, with the shadow origin raised to the level of each block."
+    },
+    {
+        "category": "Shadows",
+        "path": "tools/sunlight-construction/",
+        "icon": "☀️",
+        "title": "Sunlight Construction",
+        "description": "Find the shadows of sticks in sunlight, with the sun in front of you (positive) or behind you (negative), using the sun, the horizon and the sun's shadow origin."
+    },
+    {
         "category": "Observation",
         "path": "tools/blind-contour/",
         "icon": "👁️",

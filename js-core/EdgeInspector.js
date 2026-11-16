@@ -1,4 +1,5 @@
 import { onCameraMoved } from './Apparatus.js';
+import { onDrawingResize } from './PerspectiveEngine.js';
 import { viewSize, toPixels, edgeVisible } from './CubeScreen.js';
 
 // ==========================================
@@ -38,7 +39,7 @@ function distanceToSegment(pt, p, q) {
 
 export function createEdgeInspector(cubes) {
     const container = document.getElementById('perspective-container');
-    const { width, height } = viewSize();
+    let { width, height } = viewSize(); // follows the Drawing View when it is resized
 
     // The overlay: hover / reference / target lines, a ruler, and ratio labels
     const svg = svgElement('svg', 'edge-inspector');
@@ -186,6 +187,11 @@ export function createEdgeInspector(cubes) {
     function clear() { reference = null; target = null; update(); }
 
     onCameraMoved(update);
+    onDrawingResize(() => {
+        ({ width, height } = viewSize());
+        svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+        update();
+    });
     hideAll();
     return { setEnabled, setShowAll, clear, update };
 }

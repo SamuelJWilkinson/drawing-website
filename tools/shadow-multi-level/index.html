@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadows on Several Levels | Drawing Tools</title>
+    <link rel="stylesheet" href="../../css/shared-layout.css">
+</head>
+<body>
+    <div class="app-container">
+
+        <div id="sidebar">
+            <a href="../../index.html" class="back-link">← Back to Library</a>
+            <h1>Shadows on Several Levels</h1>
+            <p class="tool-description">A lamp hangs over three blocks of different heights, with sticks standing on top of them. Each stick's shadow is worked out from the level of the block it stands on, so the shadow origin sits at that height too.</p>
+
+            <div class="control-panel">
+                <div class="section-label">Sticks: <span id="stick-count"></span></div>
+                <div class="button-row">
+                    <button id="add-stick-btn">Add Stick</button>
+                    <button id="remove-stick-btn">Remove Stick</button>
+                </div>
+                <button id="generate-btn">Move Blocks and Sticks</button>
+
+                <hr class="divider">
+                <div class="section-label">Light</div>
+
+                <div class="control-group slider-group">
+                    <label for="light-slider">Light height: <span id="light-value"></span></label>
+                    <!-- The light always stays directly above the centre of the plane -->
+                    <input type="range" id="light-slider" min="5.5" max="9" step="0.1" value="7">
+                </div>
+
+                <hr class="divider">
+                <div class="section-label">View</div>
+
+                <div class="control-group slider-group">
+                    <label for="pitch-slider">Looking down: <span id="pitch-value"></span>°</label>
+                    <input type="range" id="pitch-slider" min="5" max="85" step="1" value="30">
+                </div>
+
+                <div class="control-group slider-group">
+                    <label for="zoom-slider">Zoom (Drawing View): <span id="zoom-value"></span>×</label>
+                    <!-- Scroll over the drawing to zoom at the pointer, drag it to move around -->
+                    <input type="range" id="zoom-slider" min="1" max="5" step="0.1" value="1">
+                </div>
+                <button id="zoom-reset-btn">Show Whole Scene</button>
+
+                <hr class="divider">
+                <div class="section-label">Construction</div>
+                <div class="control-group"><label><input type="checkbox" id="origin-toggle" checked> Show Shadow Origin</label></div>
+                <div class="control-group"><label><input type="checkbox" id="plumb-toggle" checked> Show Line from Light to Origin</label></div>
+                <div class="control-group"><label><input type="checkbox" id="ray-toggle" checked> Show Light Ray</label></div>
+                <div class="control-group"><label><input type="checkbox" id="direction-toggle" checked> Show Shadow Direction</label></div>
+                <div class="control-group"><label><input type="checkbox" id="light-plane-toggle"> Show Light Planes</label></div>
+                <div class="control-group"><label><input type="checkbox" id="cut-toggle" checked> Highlight Where Planes Cut Blocks</label></div>
+
+                <hr class="divider">
+                <div class="control-group"><label><input type="checkbox" id="ground-toggle" checked> Show Ground Grid</label></div>
+                <div class="control-group"><label><input type="checkbox" id="horizon-toggle"> Show Horizon Line</label></div>
+                <div class="control-group"><label><input type="checkbox" id="cov-60-toggle"> Show 60° Cone of Vision</label></div>
+                <div class="control-group"><label><input type="checkbox" id="cov-90-toggle"> Show 90° Cone of Vision</label></div>
+            </div>
+        </div>
+
+        <div class="canvas-grid">
+            <div id="perspective-container" class="view-box main-view"><h3>1. Drawing View</h3></div>
+            <div id="top-container" class="view-box sub-view"><h3>2. Top Plan View</h3></div>
+            <div id="meta-container" class="view-box sub-view"><h3>3. Meta 3D View</h3></div>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script type="module" src="tool.js"></script>
+</body>
+</html>

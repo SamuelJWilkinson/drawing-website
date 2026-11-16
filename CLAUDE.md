@@ -5,7 +5,7 @@ Small static site of interactive perspective tools (Three.js r128 from CDN, glob
 ## Layout
 - `index.html` + `js-core/Library.js` + `tools.json`: home page; one card per `tools.json` entry.
 - `css/shared-layout.css`: all styling (home page, tool page layout, sidebar parts).
-- `js-core/PerspectiveEngine.js`: shared `scene`, 3 cameras/renderers (Drawing view, Top plan, Meta 3D), mounted into `#perspective-container`, `#top-container`, `#meta-container`.
+- `js-core/PerspectiveEngine.js`: shared `scene`, 3 cameras/renderers (Drawing view, Top plan, Meta 3D), mounted into `#perspective-container`, `#top-container`, `#meta-container`. The Drawing View fills the window beside the sidebar (sized by the CSS, follows window resizes); the two small views are 400x400 below it. Sidebar and main area scroll separately. Code that needs the Drawing View's size must use `viewSize()` / `onDrawingResize(cb)`, never fixed numbers.
 - `js-core/Apparatus.js`: station point, line of sight, picture plane, horizon line, 60°/90° cones. Wires `#horizon-toggle`, `#cov-60-toggle`, `#cov-90-toggle`, `#pp-slider`, `#sp-slider` when present. Exports `moveStationPoint(z)` and `onCameraMoved(cb)`.
 - `js-core/Cube.js`: `createFaceColouredCube`, `createVanishingLines` (`addCube`, `update`, `group`), `setWireframe`, `wireCubeToggles`.
 - `js-core/RenderLoop.js`: `startRenderLoop(vanishingLinesGroup)`; call it last in a tool.
