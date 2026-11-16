@@ -42,6 +42,13 @@
         "description": "Find the shadows of sticks standing on blocks of different heights, with the shadow origin raised to the level of each block."
     },
     {
+        "category": "Shadows",
+        "path": "tools/sunlight-construction/",
+        "icon": "☀️",
+        "title": "Sunlight Construction",
+        "description": "Find the shadows of sticks in sunlight, with the sun in front of you (positive) or behind you (negative), using the sun, the horizon and the sun's shadow origin."
+    },
+    {
         "category": "Observation",
         "path": "tools/blind-contour/",
         "icon": "👁️",

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunlight Construction | Drawing Tools</title>
+    <link rel="stylesheet" href="../../css/shared-layout.css">
+</head>
+<body>
+    <div class="app-container">
+
+        <div id="sidebar">
+            <a href="../../index.html" class="back-link">← Back to Library</a>
+            <h1>Sunlight Construction</h1>
+            <p class="tool-description">The sun is so far away that its rays run parallel, so in a drawing they meet at one point: the sun. Straight below it, on the horizon, is the sun's shadow origin. Find each stick's shadow where the line from the sun through its top crosses the line from the shadow origin through its foot.</p>
+
+            <div class="control-panel">
+                <div class="section-label">Where is the sun?</div>
+                <div class="button-row">
+                    <button id="mode-positive" class="active">Positive (in front)</button>
+                    <button id="mode-negative">Negative (behind you)</button>
+                </div>
+                <p class="small-note" id="mode-note"></p>
+
+                <div class="control-group slider-group">
+                    <label for="sun-slider">Sun height: <span id="sun-value"></span>°</label>
+                    <!-- How high the real sun is above the ground. In the drawing it moves up and down above (or below) the shadow origin -->
+                    <input type="range" id="sun-slider" min="25" max="45" step="1" value="35">
+                </div>
+                <div class="control-group slider-group">
+                    <label for="side-slider">Sun left / right: <span id="side-value"></span>°</label>
+                    <!-- Moves the sun, and its shadow origin, along the horizon -->
+                    <input type="range" id="side-slider" min="-15" max="15" step="1" value="10">
+                </div>
+
+                <hr class="divider">
+                <div class="section-label">Sticks: <span id="stick-count"></span></div>
+                <div class="button-row">
+                    <button id="add-stick-btn">Add Stick</button>
+                    <button id="remove-stick-btn">Remove Stick</button>
+                </div>
+                <button id="generate-btn">Move the Sticks</button>
+
+                <hr class="divider">
+                <div class="section-label">Construction</div>
+                <div class="control-group"><label><input type="checkbox" id="origin-toggle" checked> Show Shadow Origin (white)</label></div>
+                <div class="control-group"><label><input type="checkbox" id="ray-toggle" checked> Show Light Rays (yellow)</label></div>
+                <div class="control-group"><label><input type="checkbox" id="direction-toggle" checked> Show Shadow Lines (blue)</label></div>
+                <div class="control-group"><label><input type="checkbox" id="shadow-toggle" checked> Show Shadows</label></div>
+
+                <hr class="divider">
+                <div class="section-label">View</div>
+                <div class="control-group slider-group">
+                    <label for="pitch-slider">Looking down: <span id="pitch-value"></span>°</label>
+                    <!-- 0° is level, with the horizon across the middle -->
+                    <input type="range" id="pitch-slider" min="0" max="60" step="1" value="0">
+                </div>
+                <div class="control-group slider-group">
+                    <label for="zoom-slider">Zoom (Drawing View): <span id="zoom-value"></span>×</label>
+                    <!-- Scroll over the drawing to zoom at the pointer, drag it to move around -->
+                    <input type="range" id="zoom-slider" min="1" max="5" step="0.1" value="1">
+                </div>
+                <button id="zoom-reset-btn">Show Whole Scene</button>
+                <div class="control-group"><label><input type="checkbox" id="horizon-toggle" checked> Show Horizon Line</label></div>
+                <div class="control-group"><label><input type="checkbox" id="ground-toggle" checked> Show Ground Grid</label></div>
+            </div>
+        </div>
+
+        <div class="canvas-grid">
+            <div id="perspective-container" class="view-box main-view"><h3>1. Drawing View</h3></div>
+            <div id="top-container" class="view-box sub-view"><h3>2. Top Plan View</h3></div>
+            <div id="meta-container" class="view-box sub-view"><h3>3. Meta 3D View</h3></div>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script type="module" src="tool.js"></script>
+</body>
+</html>
