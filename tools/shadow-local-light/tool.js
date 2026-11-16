@@ -1,49 +1,24 @@
-import { scene, cameraPerspective, cameraTop, cameraMeta } from '../../js-core/PerspectiveEngine.js';
-import { aimStationPoint } from '../../js-core/Apparatus.js';
+import { scene } from '../../js-core/PerspectiveEngine.js';
 import { createVanishingLines } from '../../js-core/Cube.js';
 import { startRenderLoop } from '../../js-core/RenderLoop.js';
+import { createShadowStage, setupShadowView, makeLine, setLine, makeLightPlane, setLightPlane, setupDrawingZoom } from '../../js-core/ShadowTools.js';
 
 // ==========================================
 // 1. THE PLANE AND THE LIGHT
+// The light is a bright ball that only ever moves up and down over the centre
 // ==========================================
-const PLANE_SIZE = 12;
-
-const plane = new THREE.Mesh(
-    new THREE.PlaneGeometry(PLANE_SIZE, PLANE_SIZE),
-    new THREE.MeshBasicMaterial({ color: 0x3a3f47 })
-);
-plane.rotation.x = -Math.PI / 2;
-plane.position.y = -0.01; // just under the grid and shadow, so they don't flicker
-scene.add(plane);
-
-const ground = new THREE.GridHelper(PLANE_SIZE, PLANE_SIZE, 0x888888, 0x555555);
-scene.add(ground);
-
-// The light: a bright ball that only ever moves up and down over the centre
-const light = new THREE.Mesh(new THREE.SphereGeometry(0.25, 24, 24), new THREE.MeshBasicMaterial({ color: 0xffee66 }));
-scene.add(light);
+const { ground, light } = createShadowStage();
+setupShadowView({ eyeDistance: 17, lookAt: new THREE.Vector3(0, 2, 0), zoom: 1.25 });
+setupDrawingZoom();
 
 // ==========================================
-// 2. CONSTRUCTION LINES (each has its own toggle)
+// 2. CONSTRUCTION (each part has its own toggle)
 // shadow origin: the point on the plane directly under the light
 // line to origin: straight down from the light to the shadow origin
 // light ray: from the light past the top of a stick down to the plane (one per stick)
 // shadow direction: along the plane, from the shadow origin through a stick's foot to its shadow's tip (one per stick)
+// light plane: the upright rectangle from the true ground plane up to the light, holding the light ray and the shadow direction (one per stick)
 // ==========================================
-function makeLine(color, dashed) {
-    const material = dashed
-        ? new THREE.LineDashedMaterial({ color, dashSize: 0.2, gapSize: 0.1 })
-        : new THREE.LineBasicMaterial({ color });
-    const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), material);
-    line.frustumCulled = false;
-    scene.add(line);
-    return line;
-}
-function setLine(line, a, b) {
-    line.geometry.setFromPoints([a, b]);
-    if (line.material.isLineDashedMaterial) line.computeLineDistances();
-}
-
 const plumbLine = makeLine(0xffffff, true);
 const shadowOrigin = new THREE.Mesh(new THREE.SphereGeometry(0.12, 16, 16), new THREE.MeshBasicMaterial({ color: 0xffffff }));
 scene.add(shadowOrigin);
@@ -51,7 +26,7 @@ scene.add(shadowOrigin);
 // ==========================================
 // 3. THE STICKS
 // Each stick is a thin pole with a ball on top (the point whose shadow you trace),
-// plus its own shadow strip, light ray and shadow direction line.
+// plus its own shadow strip, light ray, shadow direction line and light plane.
 // ==========================================
 const STICK_RADIUS = 0.05;
 const MAX_STICKS = 5;
@@ -72,14 +47,15 @@ function createStick() {
         group, pole, tip, shadow, height: 1.5,
         rayLine: makeLine(0xffee66, false),
         directionLine: makeLine(0x44ddff, false),
-        shadowTip: new THREE.Mesh(new THREE.SphereGeometry(0.08, 12, 12), new THREE.MeshBasicMaterial({ color: 0x44ddff }))
+        shadowTip: new THREE.Mesh(new THREE.SphereGeometry(0.08, 12, 12), new THREE.MeshBasicMaterial({ color: 0x44ddff })),
+        lightPlane: makeLightPlane()
     };
     scene.add(stick.shadowTip);
     return stick;
 }
 
 function removeStick(stick) {
-    [stick.group, stick.shadow, stick.rayLine, stick.directionLine, stick.shadowTip].forEach(o => scene.remove(o));
+    [stick.group, stick.shadow, stick.rayLine, stick.directionLine, stick.shadowTip, stick.lightPlane].forEach(o => scene.remove(o));
 }
 
 // ==========================================
@@ -112,6 +88,7 @@ function updateShadows() {
 
         setLine(s.rayLine, lightPos, tipPos);
         setLine(s.directionLine, underLight, tipPos);
+        setLightPlane(s.lightPlane, h, stickFoot.x / stickFoot.length(), stickFoot.z / stickFoot.length());
         s.shadowTip.position.copy(tipPos);
     });
 }
@@ -144,33 +121,6 @@ function generate() {
 }
 
 // ==========================================
-// 5. VIEW
-// The eye swings in an arc around a point above the middle of the plane, always looking at it.
-// ==========================================
-const EYE_DISTANCE = 17;
-const lookAtPoint = new THREE.Vector3(0, 2, 0);
-const pitchSlider = document.getElementById('pitch-slider');
-const pitchValue = document.getElementById('pitch-value');
-
-// Top plan view: centred on the plane, wide enough to hold all of it
-cameraTop.left = -7; cameraTop.right = 7; cameraTop.top = 7; cameraTop.bottom = -7;
-cameraTop.position.set(0, 10, 0);
-cameraTop.lookAt(0, 0, 0);
-cameraTop.updateProjectionMatrix();
-
-// Zoom in a little, and pull the Meta 3D view back so it holds the whole plane
-cameraPerspective.zoom = 1.25;
-cameraPerspective.updateProjectionMatrix();
-cameraMeta.position.set(18, 12, 18);
-
-function applyPitch() {
-    const pitch = parseFloat(pitchSlider.value) * Math.PI / 180;
-    const eye = new THREE.Vector3(0, Math.sin(pitch), Math.cos(pitch)).multiplyScalar(EYE_DISTANCE).add(lookAtPoint);
-    aimStationPoint(eye, lookAtPoint);
-    pitchValue.textContent = pitchSlider.value;
-}
-
-// ==========================================
 // 6. UI
 // ==========================================
 const addBtn = document.getElementById('add-stick-btn');
@@ -192,12 +142,13 @@ function addStick() {
     updateStickButtons();
 }
 
-// Each construction toggle shows or hides its lines for every stick
+// Each construction toggle shows or hides its parts for every stick
 const toggles = {
     origin: document.getElementById('origin-toggle'),
     plumb: document.getElementById('plumb-toggle'),
     ray: document.getElementById('ray-toggle'),
-    direction: document.getElementById('direction-toggle')
+    direction: document.getElementById('direction-toggle'),
+    lightPlane: document.getElementById('light-plane-toggle')
 };
 function applyToggles() {
     shadowOrigin.visible = toggles.origin.checked;
@@ -206,11 +157,12 @@ function applyToggles() {
         s.rayLine.visible = toggles.ray.checked;
         s.directionLine.visible = toggles.direction.checked;
         s.shadowTip.visible = toggles.direction.checked;
+        s.lightPlane.visible = toggles.lightPlane.checked;
     });
 }
 Object.values(toggles).forEach(box => box.addEventListener('change', applyToggles));
 
-document.addEventListener('DOMContentLoaded', () => { addStick(); applyPitch(); });
+addStick();
 document.getElementById('generate-btn').addEventListener('click', generate);
 addBtn.addEventListener('click', addStick);
 removeBtn.addEventListener('click', () => {
@@ -218,7 +170,6 @@ removeBtn.addEventListener('click', () => {
     updateStickButtons();
 });
 lightSlider.addEventListener('input', updateShadows);
-pitchSlider.addEventListener('input', applyPitch);
 document.getElementById('ground-toggle').addEventListener('change', e => ground.visible = e.target.checked);
 
 // ==========================================

@@ -35,6 +35,13 @@
         "description": "Find where a stick's shadow falls on a plane when the light is close by, and watch it change as the light moves up and down."
     },
     {
+        "category": "Shadows",
+        "path": "tools/shadow-multi-level/",
+        "icon": "🧊💡",
+        "title": "Shadows on Several Levels",
+        "description": "Find the shadows of sticks standing on blocks of different heights, with the shadow origin raised to the level of each block."
+    },
+    {
         "category": "Observation",
         "path": "tools/blind-contour/",
         "icon": "👁️",

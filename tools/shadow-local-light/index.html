@@ -39,12 +39,20 @@
                     <input type="range" id="pitch-slider" min="5" max="85" step="1" value="30">
                 </div>
 
+                <div class="control-group slider-group">
+                    <label for="zoom-slider">Zoom (Drawing View): <span id="zoom-value"></span>×</label>
+                    <!-- Scroll over the drawing to zoom at the pointer, drag it to move around -->
+                    <input type="range" id="zoom-slider" min="1" max="5" step="0.1" value="1">
+                </div>
+                <button id="zoom-reset-btn">Show Whole Scene</button>
+
                 <hr class="divider">
                 <div class="section-label">Construction</div>
                 <div class="control-group"><label><input type="checkbox" id="origin-toggle" checked> Show Shadow Origin</label></div>
                 <div class="control-group"><label><input type="checkbox" id="plumb-toggle" checked> Show Line from Light to Origin</label></div>
                 <div class="control-group"><label><input type="checkbox" id="ray-toggle" checked> Show Light Ray</label></div>
                 <div class="control-group"><label><input type="checkbox" id="direction-toggle" checked> Show Shadow Direction</label></div>
+                <div class="control-group"><label><input type="checkbox" id="light-plane-toggle"> Show Light Planes</label></div>
 
                 <hr class="divider">
                 <div class="control-group"><label><input type="checkbox" id="ground-toggle" checked> Show Ground Grid</label></div>
