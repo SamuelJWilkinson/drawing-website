@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timed Sketch | Drawing Tools</title>
+    <link rel="stylesheet" href="../../css/shared-layout.css">
+</head>
+<body>
+    <div class="app-container">
+
+        <!-- COLUMN 1: The Left Sidebar -->
+        <div id="sidebar">
+            <a href="../../index.html" class="back-link">← Back to Library</a>
+            <h1>Timed Sketch</h1>
+            <p class="tool-description">Draw a picture in a set time. The border around it slowly runs out, so you can feel how much time is left without watching a clock.</p>
+
+            <div class="control-panel">
+                <div class="section-label">Subject</div>
+                <!-- Buttons are added by tool.js (the SUBJECTS list) -->
+                <div id="category-buttons" class="button-row"></div>
+                <button id="next-btn">Next Image</button>
+
+                <hr class="divider">
+
+                <div class="section-label">Time</div>
+                <div id="timer-buttons" class="button-row">
+                    <button data-seconds="300">5 min</button>
+                    <button data-seconds="600">10 min</button>
+                    <button data-seconds="720">12 min</button>
+                    <button data-seconds="1200">20 min</button>
+                </div>
+                <div id="timer-display" class="timer-display">10 min</div>
+                <div class="button-row">
+                    <button id="start-btn">Start</button>
+                    <button id="reset-btn">Reset</button>
+                </div>
+                <div class="control-group">
+                    <label><input type="checkbox" id="show-countdown-toggle"> Show minutes and seconds left</label>
+                </div>
+
+                <hr class="divider">
+
+                <div class="section-label">Frame the picture</div>
+                <p class="small-note">Drag the picture to move it. Scroll or pinch over it to zoom.</p>
+                <div class="button-row">
+                    <button id="zoom-in-btn">Zoom in</button>
+                    <button id="zoom-out-btn">Zoom out</button>
+                    <button id="reset-view-btn">Reset</button>
+                </div>
+
+                <hr class="divider">
+
+                <div class="section-label">Check your drawing</div>
+                <div class="control-group">
+                    <label><input type="checkbox" id="crosshair-toggle"> Show crosshair (splits the frame into quarters)</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLUMN 2: The Reference Image, inside the border that runs out -->
+        <div class="reference-area">
+            <div id="timed-frame" class="timed-frame">
+                <!-- The canvas: exactly as big as the picture first is. The picture moves and zooms inside it; the crosshair stays still -->
+                <div id="pan-zoom" class="drawing-frame pan-zoom">
+                    <img id="reference-image" class="reference-image visible" alt="Reference picture to draw" draggable="false">
+                    <div id="crosshair" class="crosshair"></div>
+                </div>
+                <svg id="time-border" class="time-border"><rect id="time-border-line" pathLength="100"></rect></svg>
+            </div>
+            <p id="reference-message" class="reference-message">Loading…</p>
+            <p id="reference-caption" class="reference-caption"></p>
+        </div>
+
+    </div>
+
+    <script type="module" src="tool.js"></script>
+</body>
+</html>

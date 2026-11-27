@@ -68,5 +68,12 @@
         "icon": "🙃",
         "title": "Upside Down",
         "description": "Copy a line drawing shown upside down, so you draw the lines you see instead of what you think the subject is."
+    },
+    {
+        "category": "Observation",
+        "path": "tools/timed-sketch/",
+        "icon": "⏳",
+        "title": "Timed Sketch",
+        "description": "Draw a high-quality picture of an animal, plant, landscape or object in 5, 10, 12 or 20 minutes. A border round the picture slowly runs out instead of a ticking clock."
     }
 ]
